@@ -1,0 +1,32 @@
+// Java. This is for Knapsack problem.
+
+import java.util.Scanner;
+
+class CoinChange {
+	public static void main (String[] args) throws Exception {
+		
+    Scanner sc = new Scanner(System.in);
+		int [] coin = {1,5,10,50,100,500};
+    
+		System.out.println("硬貨の組み合わせを計算します！");
+		System.out.println("1000円以上は少し時間が掛かります！");
+		System.out.println("組み合わせを知りたい金額を入力してください: ");
+		
+    while (sc.hasNext()){
+			int totalAmount = sc.nextInt();
+			int result = naiveCoinChange(totalAmount,coin,0);
+			System.out.println(result + "通り");
+			System.out.println("金額を入力してください: ");
+		}
+		
+	}
+  
+  
+  	static int naiveCoinChange(int M, int[] v , int index){
+      if(M < 0) return 0;
+      if(M == 0) return 1; 
+      if(v.length == index) return 0;
+      return naiveCoinChange(M-v[index], v , index) + naiveCoinChange(M , v, index+1);
+  	} 
+	
+}
