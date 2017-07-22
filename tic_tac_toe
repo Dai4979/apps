@@ -1,0 +1,376 @@
+// Java
+
+
+public class App {
+
+    public static void main(String[] args) {
+       new Game();
+    }
+}
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Board {
+
+	  private List<Cell> emptyCells;
+    private Scanner scanner;
+    private Player[][] board;
+    private List<Cell> rootValues;
+
+    public Board() {
+    	initializeBoard();
+    }
+
+    private void initializeBoard() {
+    	this.rootValues = new ArrayList<>();
+		this.scanner = new Scanner(System.in);
+		this.board = new Player[Constants.BOARD_SIZE][Constants.BOARD_SIZE];
+	}
+
+	public boolean isRunning() {
+		
+		if( isWinning(Player.COMPUTER) ) return false;
+		if( isWinning(Player.USER)) return false;
+		if( getEmptyCells().isEmpty() )return false;
+		
+		return true;
+    }
+
+    public boolean isWinning(Player player) {
+    	
+        if ( board[0][0] == player && board[1][1] == player && board[2][2] == player ) {
+            return true;
+        }
+        
+        if( board[0][2] == player && board[1][1] == player && board[2][0] == player ){
+        	return true;
+        }
+        
+        for (int i = 0; i < Constants.BOARD_SIZE; i++) {
+           
+        	// checking the rows
+        	if ( board[i][0] == player && board[i][1] == player && board[i][2] == player ) {
+                return true;
+            }
+        	
+        	// checking the columns
+        	if( board[0][i] == player && board[1][i] == player && board[2][i] == player ){
+        		return true;
+        	}
+        }
+        
+        return false;
+    }
+
+    public List<Cell> getEmptyCells() {
+        
+    	emptyCells = new ArrayList<>();
+        
+        for (int i = 0; i < Constants.BOARD_SIZE; ++i) {
+            for (int j = 0; j < Constants.BOARD_SIZE; ++j) {
+                if (board[i][j] == Player.NONE) {
+                    emptyCells.add(new Cell(i, j));
+                }
+            }
+        }
+        return emptyCells;
+    }
+
+    public void move(Cell point, Player player) {
+        board[point.getX()][point.getY()] = player;   
+    }
+
+    public Cell getBestMove() {
+    	
+        int max = Integer.MIN_VALUE;
+        int best = Integer.MIN_VALUE;
+
+        for (int i = 0; i < rootValues.size(); ++i) { 
+            if (max < rootValues.get(i).getMinimaxValue()) {
+                max = rootValues.get(i).getMinimaxValue();
+                best = i;
+            }
+        }
+
+        return rootValues.get(best);
+    }
+
+    public void makeUserInput() {
+        System.out.println("User's move: ");
+        int x = scanner.nextInt();
+        int y = scanner.nextInt();
+        Cell point = new Cell(x, y);
+        move(point, Player.USER); 
+    }
+
+    public void displayBoard() {
+
+    	System.out.println();
+    	
+        for (int i = 0; i < Constants.BOARD_SIZE; ++i) {
+            for (int j = 0; j < Constants.BOARD_SIZE; ++j) {
+                System.out.print(board[i][j] + " ");
+            }
+            
+            System.out.println();
+        }
+    }
+
+    public int returnMin(List<Integer> list) {
+    	
+        int min = Integer.MAX_VALUE;
+        int index = Integer.MIN_VALUE;
+        
+        for (int i = 0; i < list.size(); ++i) {
+            if (list.get(i) < min) {
+                min = list.get(i);
+                index = i;
+            }
+        }
+        return list.get(index);
+    }
+
+    public int returnMax(List<Integer> list) {
+        int max = Integer.MIN_VALUE;
+        int index = Integer.MIN_VALUE;
+        for (int i = 0; i < list.size(); ++i) {
+            if (list.get(i) > max) {
+                max = list.get(i);
+                index = i;
+            }
+        }
+        
+        return list.get(index);
+    }
+ 
+    public void callMinimax(int depth, Player player){
+        rootValues.clear();
+        minimax(depth, player);
+    }
+    
+    public int minimax(int depth, Player player) {
+
+        if (isWinning(Player.COMPUTER)) return +1;
+        if (isWinning(Player.USER)) return -1;
+
+        List<Cell> availableCells = getEmptyCells();
+        
+        if (availableCells.isEmpty()) return 0; 
+
+        List<Integer> scores = new ArrayList<>(); 
+
+        for (int i = 0; i < availableCells.size(); i++) {
+            
+        	Cell point = availableCells.get(i);  
+
+            if (player == Player.COMPUTER) { //X's turn select the highest from below minimax() call
+                move(point, Player.COMPUTER); 
+                int currentScore = minimax(depth + 1, Player.USER);
+                scores.add(currentScore);
+
+                if (depth == 0) {
+                	point.setMinimaxValue(currentScore);
+                    rootValues.add(point);
+                }    	
+                
+            } else if (player == Player.USER) {//O's turn select the lowest from below minimax() call
+                move(point, Player.USER); 
+                scores.add(minimax(depth + 1, Player.COMPUTER));
+            }
+            
+            board[point.getX()][point.getY()] = Player.NONE; //Reset this point
+        }
+        
+        if( player == Player.COMPUTER ){
+        	return returnMax(scores);
+        }
+        
+        return returnMin(scores);
+    }
+
+	public List<Cell> getAvailablePoints() {
+		return emptyCells;
+	}
+
+	public void setAvailablePoints(List<Cell> availablePoints) {
+		this.emptyCells = availablePoints;
+	}
+	
+	public void setupBoard() {
+		for(int i=0;i<Constants.BOARD_SIZE;i++){
+			for(int j=0;j<Constants.BOARD_SIZE;j++){
+				board[i][j] = Player.NONE;
+			}
+		}
+	}
+    
+    //getters
+	public Scanner getScanner() {
+		return scanner;
+	}
+
+	public void setScanner(Scanner scanner) {
+		this.scanner = scanner;
+	}
+
+	public Player[][] getBoard() {
+		return board;
+	}
+
+	public void setBoard(Player[][] board) {
+		this.board = board;
+	}
+	
+	public List<Cell> getRootValues(){
+		return this.rootValues;
+	}
+}
+
+
+public class Cell {
+
+	private int x;
+	private int y;
+	private int minimaxValue;
+
+	public Cell(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public int getMinimaxValue() {
+		return minimaxValue;
+	}
+
+	public void setMinimaxValue(int score) {
+		this.minimaxValue = score;
+	}
+
+	@Override
+	public String toString() {
+		return "(" + this.x + ", " + this.y + ")";
+	}
+}
+
+
+
+public class Constants {
+
+	private Constants(){
+		
+	}
+	
+	public static final int BOARD_SIZE = 3;
+	
+}
+
+
+import java.util.Random;
+
+
+public class Game {
+
+	private Board board;
+	private Random random;
+	
+	public Game(){
+		initializeGame();
+		displayBoard();
+		makeFirstMove();
+		playGame();
+		checkStatus();
+	}
+	
+	private void checkStatus() {
+		if (board.isWinning(Player.COMPUTER)) {
+	        System.out.println("Computer has won");
+	    } else if (board.isWinning(Player.USER)) {
+	        System.out.println("Player has won");
+	    } else {
+	        System.out.println("It's a draw!");
+	    }
+	}
+
+	private void playGame() {
+		
+		while ( board.isRunning() ) {
+			
+	        System.out.println("User move: e.g., 1 2(number for raw index + space + number for column index)");
+	        Cell userCell = new Cell(board.getScanner().nextInt(), board.getScanner().nextInt());
+
+	        board.move(userCell, Player.USER); 
+	        board.displayBoard();
+	        
+	        if (!board.isRunning()) {
+	            break;
+	        }
+	        
+	        board.callMinimax(0, Player.COMPUTER);
+	        
+	        for (Cell cell : board.getRootValues()) {
+	            System.out.println("Cell values: " + cell + " minimaxValue: " + cell.getMinimaxValue());
+	        }
+	        
+	        board.move(board.getBestMove(), Player.COMPUTER);
+	        board.displayBoard();
+	    }
+	}
+
+	private void makeFirstMove() {
+		
+		System.out.println("Who starts? 1 - Computer ; 2 - User"); 
+	    int choice = board.getScanner().nextInt();
+	    
+	    if(choice == 1){
+	        Cell cell = new Cell(random.nextInt(Constants.BOARD_SIZE), random.nextInt(Constants.BOARD_SIZE));
+	        board.move(cell, Player.COMPUTER);
+	        board.displayBoard();
+	    }
+	}
+
+	private void displayBoard() {
+		 board.displayBoard();
+	}
+
+	private void initializeGame() {
+		this.board = new Board();
+		this.board.setupBoard();
+	    this.random = new Random();
+	}
+}
+
+
+
+public enum Player {
+	
+	COMPUTER("X"), USER("O"), NONE("-");
+	
+	private Player(String text){
+		this.text = text;
+	}
+
+	private final String text;
+	
+	public String toString(){
+		return text;
+	}
+}
