@@ -3,7 +3,7 @@
 import pandas
 import folium
 
-# input csv-file
+# input csv
 df = pandas.read_csv("****.txt")
 
 map = folium.Map(location=[48.421667, -123.370047], zoom_start=14, tiles="Stamen Terrain")
