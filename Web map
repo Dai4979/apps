@@ -1,0 +1,456 @@
+# Python3
+
+import pandas
+import folium
+
+# input csv-file
+df = pandas.read_csv("****.txt")
+
+map = folium.Map(location=[48.421667, -123.370047], zoom_start=14, tiles="Stamen Terrain")
+for name, lat, lon in zip(df["NAME"], df["LATITUDE"], df["LONGITUDE"]):
+    map.add_child(folium.Marker(location=[lat, lon], popup=name,
+    icon=folium.Icon(color="green", icon_color='white', icon='info-sign')))
+
+# create html-file
+map.save(outfile="****.html")
+
+|
+| 
+v
+
+# HTML file 
+
+<!DOCTYPE html>
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script>L_PREFER_CANVAS = false; L_NO_TOUCH = false; L_DISABLE_3D = false;</script>
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.0/leaflet.markercluster-src.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.0/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.0/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://rawgit.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css" />
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    
+            <style> #map_79f524c2747b4fdfadfac3bc9093b21b {
+                position : relative;
+                width : 100.0%;
+                height: 100.0%;
+                left: 0.0%;
+                top: 0.0%;
+                }
+            </style>
+        
+</head>
+<body>    
+    
+            <div class="folium-map" id="map_79f524c2747b4fdfadfac3bc9093b21b" ></div>
+        
+</body>
+<script>    
+    
+
+            
+                var southWest = L.latLng(-90, -180);
+                var northEast = L.latLng(90, 180);
+                var bounds = L.latLngBounds(southWest, northEast);
+            
+
+            var map_79f524c2747b4fdfadfac3bc9093b21b = L.map(
+                                  'map_79f524c2747b4fdfadfac3bc9093b21b',
+                                  {center: [48.421667,-123.370047],
+                                  zoom: 14,
+                                  maxBounds: bounds,
+                                  layers: [],
+                                  worldCopyJump: false,
+                                  crs: L.CRS.EPSG3857
+                                 });
+            
+        
+    
+            var tile_layer_4d7f0a5f823f44b980d2bae4df14ed3c = L.tileLayer(
+                'https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg',
+                {
+                    maxZoom: 18,
+                    minZoom: 1,
+                    continuousWorld: false,
+                    noWrap: false,
+                    attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.',
+                    detectRetina: false
+                    }
+                ).addTo(map_79f524c2747b4fdfadfac3bc9093b21b);
+
+        
+    
+
+            var marker_4863dc708fbe402c91d0f6be20aa7d02 = L.marker(
+                [48.412683,-123.363118],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(map_79f524c2747b4fdfadfac3bc9093b21b);
+            
+    
+
+                var icon_eaa6c6d9028941efb076de347fc2ea47 = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'green',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_4863dc708fbe402c91d0f6be20aa7d02.setIcon(icon_eaa6c6d9028941efb076de347fc2ea47);
+            
+    
+            var popup_466fa82d11d843f6a1a01223e06de5da = L.popup({maxWidth: '300'});
+
+            
+                var html_759ba7bccfa34854a7e94c188f5d97a2 = $('<div id="html_759ba7bccfa34854a7e94c188f5d97a2" style="width: 100.0%; height: 100.0%;">Beacon Hill Park</div>')[0];
+                popup_466fa82d11d843f6a1a01223e06de5da.setContent(html_759ba7bccfa34854a7e94c188f5d97a2);
+            
+
+            marker_4863dc708fbe402c91d0f6be20aa7d02.bindPopup(popup_466fa82d11d843f6a1a01223e06de5da);
+
+            
+        
+    
+
+            var marker_8de3efadc4714420ae39a108a29c20c2 = L.marker(
+                [48.421667,-123.367847],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(map_79f524c2747b4fdfadfac3bc9093b21b);
+            
+    
+
+                var icon_651f7aa6f73147ebac6772d1412d68ad = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'green',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_8de3efadc4714420ae39a108a29c20c2.setIcon(icon_651f7aa6f73147ebac6772d1412d68ad);
+            
+    
+            var popup_aea8861366d84147bb5586329ae0e213 = L.popup({maxWidth: '300'});
+
+            
+                var html_8abb928de2fa49debe3c6f9a82a16c75 = $('<div id="html_8abb928de2fa49debe3c6f9a82a16c75" style="width: 100.0%; height: 100.0%;">The Fairmont Empress Hotel</div>')[0];
+                popup_aea8861366d84147bb5586329ae0e213.setContent(html_8abb928de2fa49debe3c6f9a82a16c75);
+            
+
+            marker_8de3efadc4714420ae39a108a29c20c2.bindPopup(popup_aea8861366d84147bb5586329ae0e213);
+
+            
+        
+    
+
+            var marker_59c1466c500e46679af2cc57c39c16b3 = L.marker(
+                [48.421667,-123.370047],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(map_79f524c2747b4fdfadfac3bc9093b21b);
+            
+    
+
+                var icon_916ba53bf468433cb2b9cda118f6aae4 = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'green',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_59c1466c500e46679af2cc57c39c16b3.setIcon(icon_916ba53bf468433cb2b9cda118f6aae4);
+            
+    
+            var popup_6dfe994862074d4f96614b9e3c748e79 = L.popup({maxWidth: '300'});
+
+            
+                var html_290322df10594f088b429e9405c381e9 = $('<div id="html_290322df10594f088b429e9405c381e9" style="width: 100.0%; height: 100.0%;">Inner Harbour (Victoria Harbour)</div>')[0];
+                popup_6dfe994862074d4f96614b9e3c748e79.setContent(html_290322df10594f088b429e9405c381e9);
+            
+
+            marker_59c1466c500e46679af2cc57c39c16b3.bindPopup(popup_6dfe994862074d4f96614b9e3c748e79);
+
+            
+        
+    
+
+            var marker_6bb08f70c76e42efadfef078a8b65ec5 = L.marker(
+                [48.4251,-123.3661],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(map_79f524c2747b4fdfadfac3bc9093b21b);
+            
+    
+
+                var icon_f1f5669154754da8adcc0720b34dc7af = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'green',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_6bb08f70c76e42efadfef078a8b65ec5.setIcon(icon_f1f5669154754da8adcc0720b34dc7af);
+            
+    
+            var popup_0515078fbecd43318641e082049f6219 = L.popup({maxWidth: '300'});
+
+            
+                var html_a7153e6b3e4044feb383a459637a0342 = $('<div id="html_a7153e6b3e4044feb383a459637a0342" style="width: 100.0%; height: 100.0%;">The Bay Centre</div>')[0];
+                popup_0515078fbecd43318641e082049f6219.setContent(html_a7153e6b3e4044feb383a459637a0342);
+            
+
+            marker_6bb08f70c76e42efadfef078a8b65ec5.bindPopup(popup_0515078fbecd43318641e082049f6219);
+
+            
+        
+    
+
+            var marker_94315228091147219ba1ef40e05f78cf = L.marker(
+                [20.910051,107.183902],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(map_79f524c2747b4fdfadfac3bc9093b21b);
+            
+    
+
+                var icon_fdc479270bf64364989f4220c007b9cd = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'green',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_94315228091147219ba1ef40e05f78cf.setIcon(icon_fdc479270bf64364989f4220c007b9cd);
+            
+    
+            var popup_e7767d14ad274451b1f979fe2d409e25 = L.popup({maxWidth: '300'});
+
+            
+                var html_473fe207c62249caa70833ef68a57509 = $('<div id="html_473fe207c62249caa70833ef68a57509" style="width: 100.0%; height: 100.0%;">Ha Long Bay</div>')[0];
+                popup_e7767d14ad274451b1f979fe2d409e25.setContent(html_473fe207c62249caa70833ef68a57509);
+            
+
+            marker_94315228091147219ba1ef40e05f78cf.bindPopup(popup_e7767d14ad274451b1f979fe2d409e25);
+
+            
+        
+    
+
+            var marker_1cd18520a2c343b2b16635f77068844b = L.marker(
+                [21.036667,105.834722],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(map_79f524c2747b4fdfadfac3bc9093b21b);
+            
+    
+
+                var icon_8b963e9e30de42c6b0720428dc81c0fa = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'green',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_1cd18520a2c343b2b16635f77068844b.setIcon(icon_8b963e9e30de42c6b0720428dc81c0fa);
+            
+    
+            var popup_3d9c89ab297c428f86d5e9258316ee4e = L.popup({maxWidth: '300'});
+
+            
+                var html_f7f976430094453aa0e06bcc4d447722 = $('<div id="html_f7f976430094453aa0e06bcc4d447722" style="width: 100.0%; height: 100.0%;">The Ho Chi Minh Mausoleum</div>')[0];
+                popup_3d9c89ab297c428f86d5e9258316ee4e.setContent(html_f7f976430094453aa0e06bcc4d447722);
+            
+
+            marker_1cd18520a2c343b2b16635f77068844b.bindPopup(popup_3d9c89ab297c428f86d5e9258316ee4e);
+
+            
+        
+    
+
+            var marker_011150f9c356463588773587ed128556 = L.marker(
+                [13.4125,103.866667],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(map_79f524c2747b4fdfadfac3bc9093b21b);
+            
+    
+
+                var icon_a202bbac2d6c4d498b8ddc67bea3bd17 = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'green',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_011150f9c356463588773587ed128556.setIcon(icon_a202bbac2d6c4d498b8ddc67bea3bd17);
+            
+    
+            var popup_24af6eabcd7646359bead109b6d1a05e = L.popup({maxWidth: '300'});
+
+            
+                var html_ae65518f520d47f2a4ba8c31df70156a = $('<div id="html_ae65518f520d47f2a4ba8c31df70156a" style="width: 100.0%; height: 100.0%;">Angkor Wat</div>')[0];
+                popup_24af6eabcd7646359bead109b6d1a05e.setContent(html_ae65518f520d47f2a4ba8c31df70156a);
+            
+
+            marker_011150f9c356463588773587ed128556.bindPopup(popup_24af6eabcd7646359bead109b6d1a05e);
+
+            
+        
+    
+
+            var marker_0d6d4d1b3f5e46599ae4a5756944b1cb = L.marker(
+                [13.435,103.889167],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(map_79f524c2747b4fdfadfac3bc9093b21b);
+            
+    
+
+                var icon_ed17dec166334752b0eee2e15fbb78de = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'green',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_0d6d4d1b3f5e46599ae4a5756944b1cb.setIcon(icon_ed17dec166334752b0eee2e15fbb78de);
+            
+    
+            var popup_ad29f306b312432d8d01a2a2e17cec32 = L.popup({maxWidth: '300'});
+
+            
+                var html_82f51af7b89440f3bd8384aa30a30965 = $('<div id="html_82f51af7b89440f3bd8384aa30a30965" style="width: 100.0%; height: 100.0%;">Ta Prohm</div>')[0];
+                popup_ad29f306b312432d8d01a2a2e17cec32.setContent(html_82f51af7b89440f3bd8384aa30a30965);
+            
+
+            marker_0d6d4d1b3f5e46599ae4a5756944b1cb.bindPopup(popup_ad29f306b312432d8d01a2a2e17cec32);
+
+            
+        
+    
+
+            var marker_15af4bc2658e4d25bec234e827dabb6c = L.marker(
+                [13.42418,103.85601],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(map_79f524c2747b4fdfadfac3bc9093b21b);
+            
+    
+
+                var icon_ec7416a5fa2e4502a67bd504e1042305 = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'green',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_15af4bc2658e4d25bec234e827dabb6c.setIcon(icon_ec7416a5fa2e4502a67bd504e1042305);
+            
+    
+            var popup_a4ed0d57fb45473abf26572dcefd25e0 = L.popup({maxWidth: '300'});
+
+            
+                var html_335225aeebaf461a9252f69656486fc3 = $('<div id="html_335225aeebaf461a9252f69656486fc3" style="width: 100.0%; height: 100.0%;">Phnom Bakheng</div>')[0];
+                popup_a4ed0d57fb45473abf26572dcefd25e0.setContent(html_335225aeebaf461a9252f69656486fc3);
+            
+
+            marker_15af4bc2658e4d25bec234e827dabb6c.bindPopup(popup_a4ed0d57fb45473abf26572dcefd25e0);
+
+            
+        
+    
+
+            var marker_9091ecac45ed425b98c13a633bf0c81b = L.marker(
+                [13.441111,103.858611],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(map_79f524c2747b4fdfadfac3bc9093b21b);
+            
+    
+
+                var icon_4d2f078e06dc43d99268eba9dc37639f = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'green',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_9091ecac45ed425b98c13a633bf0c81b.setIcon(icon_4d2f078e06dc43d99268eba9dc37639f);
+            
+    
+            var popup_47dc4f8354724056b5a4ca4c9e602861 = L.popup({maxWidth: '300'});
+
+            
+                var html_308ddb63d8814105b78966193a1298d7 = $('<div id="html_308ddb63d8814105b78966193a1298d7" style="width: 100.0%; height: 100.0%;">The Bayon</div>')[0];
+                popup_47dc4f8354724056b5a4ca4c9e602861.setContent(html_308ddb63d8814105b78966193a1298d7);
+            
+
+            marker_9091ecac45ed425b98c13a633bf0c81b.bindPopup(popup_47dc4f8354724056b5a4ca4c9e602861);
+
+            
+        
+    
+
+            var marker_fdbd2f4844104108ac7a59a004a7c4cf = L.marker(
+                [13.4125,103.866667],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(map_79f524c2747b4fdfadfac3bc9093b21b);
+            
+    
+
+                var icon_ed0f85623e0e42bca20e48c863301b07 = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'green',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_fdbd2f4844104108ac7a59a004a7c4cf.setIcon(icon_ed0f85623e0e42bca20e48c863301b07);
+            
+    
+            var popup_7d7e8c67258f4f4ca2904e864d6678d2 = L.popup({maxWidth: '300'});
+
+            
+                var html_c696ec2adf45452cac595e5e360c1c95 = $('<div id="html_c696ec2adf45452cac595e5e360c1c95" style="width: 100.0%; height: 100.0%;">Angkor Thom</div>')[0];
+                popup_7d7e8c67258f4f4ca2904e864d6678d2.setContent(html_c696ec2adf45452cac595e5e360c1c95);
+            
+
+            marker_fdbd2f4844104108ac7a59a004a7c4cf.bindPopup(popup_7d7e8c67258f4f4ca2904e864d6678d2);
+
+            
+        
+</script>
