@@ -1,0 +1,52 @@
+import random
+countinue = True
+game = True
+
+while game:
+
+    ansls = []
+    digits = list(range(10))
+    random.shuffle(digits)
+
+    
+    print("\nWelcom Code Breaker! Let's see if you can guess my 3 different digits number!\nCode has been generated, please guess the number")
+
+    while countinue:
+        guess = input("\nWhat is your guess?:  ")
+        print(guess)
+        Match = 0
+        Hit = 0
+        Miss = 0
+
+
+        #for quit this game
+        if guess[0] not in "1234567890" or  guess[1] not in "1234567890" or guess[2] not in "1234567890" or guess[0]==guess[1] or guess[0]==guess[2] or guess[1] == guess[2]:
+            print("Enter 3 different digits number!")
+            break
+
+        for i in range(3):
+            if guess[i] == str(digits[i]):
+                Match += 1
+            elif guess[i] in str(digits[:3]):
+                Hit += 1
+            else:
+                Miss += 1
+
+        print(guess + " is: "+ ": Match-" +str(Match) + " Hit-"+ str(Hit) + " Miss-" + str(Miss))
+        if Match == 3:
+            print("\nConguratulations! You broke the Code!")
+            break
+
+        ansls.insert(0,guess +  ": Match-" +str(Match) + " Hit-"+ str(Hit) + " Miss-" + str(Miss))
+        print("\nAnswer Log: ")
+        for i in ansls:
+            print(i)
+
+
+    print("You tried: "+ str(len(ansls)) + "time(s)!")
+    ask = input("Do you want to play the game again? y/n: ")
+
+    if ask =="n":
+        print("-------------------------")
+        print("Thank you for playing the game!\nCome back any time!")
+        game = False
