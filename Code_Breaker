@@ -9,7 +9,7 @@ while game:
     random.shuffle(digits)
 
     
-    print("\nWelcom Code Breaker! Let's see if you can guess my 3 different digits number!\nCode has been generated, please guess the number")
+    print("------------------------\n| Welcom Code Breaker! |\n------------------------\n\nLet's see if you can guess 3 different digits number!\n\nCode has been generated now! \nPlease guess the number!!")
 
     while countinue:
         guess = input("\nWhat is your guess?:  ")
