@@ -1,2 +1,2 @@
 # apps
-To show web applications for job-hunting
+To show applications for job-hunting
